@@ -11,5 +11,10 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["src/**/*.ts", "vitest.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "env.d.ts",
+    "vitest.*.config.ts"
+  ]
 }
