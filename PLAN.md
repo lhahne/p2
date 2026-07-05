@@ -51,7 +51,11 @@ Errors are caught in the fetch handler and returned as a structured 500 page (no
 npm install
 npm run dev          # wrangler dev (default port 8787)
 npm run check        # tsc --noEmit
-npm test             # vitest (if tests exist)
+npm test             # unit + integration (fast layers)
+npm run test:all     # unit + integration + e2e
+npm run test:unit    # pure logic/layout/registry tests
+npm run test:integration  # Worker handler in Miniflare via vitest-pool-workers
+npm run test:e2e     # real wrangler dev HTTP smoke tests
 npm run deploy       # wrangler deploy
 ```
 
@@ -61,6 +65,21 @@ npm run deploy       # wrangler deploy
 - Custom domain `p2.hahne.fi` is configured in `wrangler.jsonc`; the first deploy creates the DNS record automatically if the `hahne.fi` zone is in the same Cloudflare account.
 - Deploy command: `npm run deploy` (requires `wrangler login` or a `CLOUDFLARE_API_TOKEN` env var).
 - Cloudflare MCP can inspect workers and builds but cannot deploy; deployment uses the wrangler CLI or Workers Builds CI.
+
+## Testing
+
+The project uses a **test pyramid**: many fast unit tests at the base, fewer integration tests in the middle, and a small number of end-to-end smoke tests at the top.
+
+| Layer | What it covers | Command |
+| --- | --- | --- |
+| **Unit** | Pure functions — MAF formula (modifiers, youth/senior cutoffs, zone bounds), `escapeHtml`, registry `getApp` | `npm run test:unit` |
+| **Integration** | Default `fetch` handler routed through Miniflare (`@cloudflare/vitest-pool-workers`) — home page, app routes, 404s | `npm run test:integration` |
+| **E2E** | Real `wrangler dev` server — HTTP responses for home, MAF app form, and unknown routes | `npm run test:e2e` |
+
+- `npm test` runs unit + integration (the fast layers used in day-to-day development).
+- `npm run test:all` adds e2e on top.
+
+**Guidance:** add many unit tests for business logic, some integration tests for routing and HTML responses, and only a few e2e tests for full-stack confidence.
 
 ## Future ideas
 
