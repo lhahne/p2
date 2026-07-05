@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "p2",
+  "main": "src/index.ts",
+  "routes": [
+    {
+      "pattern": "p2.hahne.fi",
+      "custom_domain": true
+    }
+  ],
+  "compatibility_date": "2026-07-05",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  }
+}
