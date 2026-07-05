@@ -55,6 +55,13 @@ npm test             # vitest (if tests exist)
 npm run deploy       # wrangler deploy
 ```
 
+### Deploy notes
+
+- Worker name must be `p2` (matches the domain).
+- Custom domain `p2.hahne.fi` is configured in `wrangler.jsonc`; the first deploy creates the DNS record automatically if the `hahne.fi` zone is in the same Cloudflare account.
+- Deploy command: `npm run deploy` (requires `wrangler login` or a `CLOUDFLARE_API_TOKEN` env var).
+- Cloudflare MCP can inspect workers and builds but cannot deploy; deployment uses the wrangler CLI or Workers Builds CI.
+
 ## Future ideas
 
 - **KV per-app storage** — bind a KV namespace for lightweight persistence (notes, settings).

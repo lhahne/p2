@@ -12,3 +12,7 @@ npm run dev
 ```
 
 Open [http://localhost:8787](http://localhost:8787). The first app is the [MAF 180 Calculator](/apps/maffetone).
+
+## Deploy
+
+Production is served at [https://p2.hahne.fi](https://p2.hahne.fi). Deploy with `npm run deploy` after `wrangler login` or setting `CLOUDFLARE_API_TOKEN`. See [PLAN.md](./PLAN.md) for details.
